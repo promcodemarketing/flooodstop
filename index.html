@@ -278,11 +278,29 @@
   .compare .fs{ font-weight:600; color:var(--text); font-size:.95rem; }
   .compare > div:nth-last-child(-n+3){ border-bottom:none; }
   @media (max-width:720px){
-    .compare{ grid-template-columns:1fr; }
-    .compare .h{ display:none; }
-    .compare > div{ border-bottom:1px solid var(--border-soft); padding:.7rem 1.3rem; }
-    .compare .row-label{ padding-top:.6rem; font-weight:600; color:var(--text); }
+  .compare{ grid-template-columns:1fr; }
+  .compare .h{ display:none; }
+  .compare > div{ border-bottom:none; padding:.5rem 1.3rem; }
+  .compare .row-label{
+    padding-top:1.3rem;
+    font-weight:600;
+    color:var(--text);
+    border-top:1px solid var(--border-soft);
   }
+  .compare .sandbags::before{
+    content:"Worki z piaskiem: ";
+    color:var(--text-faint);
+    font-weight:600;
+  }
+  .compare .fs::before{
+    content:"Flood Stop: ";
+    color:var(--accent);
+    font-weight:600;
+  }
+  .compare > div:last-child{
+    padding-bottom:1.3rem;
+  }
+}
 
   /* ---------- team ---------- */
   .team-grid{ margin-top:3rem; }
