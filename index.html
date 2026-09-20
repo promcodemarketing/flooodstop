@@ -335,6 +335,24 @@
   @media (max-width:640px){
     .team-arrow{ display:none; } /* na mobilnej user po prostu swipeuje palcem */
   }
+  .team-dots{
+    display:flex;
+    justify-content:center;
+    gap:.6rem;
+    margin-top:1.5rem;
+  }
+  .team-dot{
+    width:24px; height:4px;
+    border-radius:2px;
+    background:var(--border);
+    border:none;
+    padding:0;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .team-dot:hover{ background:var(--text-muted); }
+  .team-dot.active{ background:var(--accent); }
+
 
   /* ---------- CTA / contact ---------- */
   .cta-section{ background:var(--bg-alt); }
@@ -787,15 +805,69 @@
             </div>
             <div>
               <h3 class="team-name">Roman Dzwon</h3>
-              <p class="team-role">Koordynator czegoś tam</p>
+              <p class="team-role">Głowny koordynator...</p>
               <div class="team-contacts">
                 <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 'losowyemail@floodstop.pl')">losowyemail@floodstop.pl</a>
                 <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48420213769')">420 213 769</a>
               </div>
             </div>
           </div>
-        </div>
+
+        <div class="team-card">
+            <div class="team-portrait">
+              <svg viewBox="0 0 320 380" role="img" aria-label="Ilustracja przedstawiciela handlowego Flood Stop w kasku strażackim">
+                <defs>
+                  <pattern id="team-dots" width="16" height="16" patternUnits="userSpaceOnUse">
+                    <circle cx="1.5" cy="1.5" r="1.4" fill="var(--illus-dot)"/>
+                  </pattern>
+                </defs>
+                <rect width="320" height="380" fill="var(--illus-bg)"/>
+                <rect width="320" height="380" fill="url(#team-dots)"/>
+
+                <!-- shoulders / torso -->
+                <path d="M42,380 L42,318 Q42,262 160,262 Q278,262 278,318 L278,380 Z" fill="var(--illus-torso-1)"/>
+                <path d="M42,380 L42,318 Q42,262 160,262 L160,380 Z" fill="var(--illus-torso-2)"/>
+
+                <!-- neck -->
+                <rect x="140" y="222" width="40" height="46" fill="var(--illus-neck)"/>
+
+                <!-- head -->
+                <ellipse cx="160" cy="188" rx="50" ry="56" fill="var(--illus-head-1)"/>
+                <ellipse cx="138" cy="188" rx="26" ry="56" fill="var(--illus-head-2)"/>
+
+                <!-- helmet brim -->
+                <ellipse cx="160" cy="150" rx="80" ry="15" fill="#a98a1f"/>
+                <ellipse cx="160" cy="146" rx="80" ry="15" fill="#f4c21a"/>
+                <!-- helmet dome -->
+                <path d="M88,148 Q88,68 160,66 Q232,68 232,148 Z" fill="#f4c21a"/>
+                <path d="M88,148 Q88,68 160,66 L160,148 Z" fill="#dba716"/>
+                <!-- helmet ridge -->
+                <rect x="156" y="66" width="8" height="82" fill="#a98a1f"/>
+                <!-- badge -->
+                <circle cx="160" cy="118" r="17" fill="var(--illus-badge-bg)" stroke="#a98a1f" stroke-width="2"/>
+                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">FS</text>
+
+                <!-- hazard rule footer -->
+                <rect x="0" y="368" width="320" height="12" fill="#f4c21a"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="team-name">Krszystof Piątek</h3>
+              <p class="team-role">Specjalista ds. sprzętu ratownictwa cywilnego</p>
+              <div class="team-contacts">
+                <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 'krzysztof.piatek@email.com')">krzysztof.piatek@email.com</a>
+                <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48213742069')">213 742 069</a>
+              </div>
+            </div>
+          </div>
+          </div>
         <button class="team-arrow next" onclick="scrollTeam(1)" aria-label="Następny">›</button>
+
+      </div>
+      <div class="team-dots" id="teamDots">
+        <button class="team-dot" onclick="scrollTeamTo(0)" aria-label="Pracownik 1"></button>
+        <button class="team-dot" onclick="scrollTeamTo(1)" aria-label="Pracownik 2"></button>
+        <button class="team-dot" onclick="scrollTeamTo(2)" aria-label="Pracownik 3"></button>
       </div>
     </div>
   </section>
@@ -893,6 +965,31 @@
     track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' });
   }
 
+  function scrollTeamTo(index){
+    var track = document.getElementById('teamTrack');
+    track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' });
+  }
+
+  function updateTeamDots(){
+    var track = document.getElementById('teamTrack');
+    var dots = document.querySelectorAll('#teamDots .team-dot');
+    var index = Math.round(track.scrollLeft / track.clientWidth);
+    dots.forEach(function(dot, i){
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var track = document.getElementById('teamTrack');
+    if (track){
+      updateTeamDots();
+      track.addEventListener('scroll', function(){
+        clearTimeout(track._dotTimer);
+        track._dotTimer = setTimeout(updateTeamDots, 80);
+      });
+    }
+  });
+
   function setTheme(mode){
     document.documentElement.setAttribute('data-theme', mode);
     localStorage.setItem('fs-theme', mode);
@@ -905,7 +1002,7 @@
   }
 
   (function(){
-    var saved = localStorage.getItem('fs-theme') || 'dark';
+    var saved = localStorage.getItem('fs-theme') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
     document.addEventListener('DOMContentLoaded', function(){
       updateThemeButtons(saved);
