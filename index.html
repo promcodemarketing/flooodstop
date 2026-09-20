@@ -989,15 +989,19 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    var track = document.getElementById('teamTrack');
-    if (track){
+  var track = document.getElementById('teamTrack');
+  if (track){
+    updateTeamDots();
+    track.addEventListener('scroll', function(){
+      clearTimeout(track._dotTimer);
+      track._dotTimer = setTimeout(function(){ updateTeamDots(); }, 30);
+    });
+    track.addEventListener('scrollend', function(){
+      clearTimeout(track._dotTimer);
       updateTeamDots();
-      track.addEventListener('scroll', function(){
-        clearTimeout(track._dotTimer);
-        track._dotTimer = setTimeout(updateTeamDots, 80);
-      });
-    }
-  });
+    });
+  }
+});
 
   function setTheme(mode){
     document.documentElement.setAttribute('data-theme', mode);
