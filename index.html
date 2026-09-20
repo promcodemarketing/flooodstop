@@ -960,20 +960,29 @@
     }, 2200);
   }
 
+  var currentTeamIndex = 0;
+
   function scrollTeam(dir){
     var track = document.getElementById('teamTrack');
-    track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' });
+    var dots = document.querySelectorAll('#teamDots .team-dot');
+    var maxIndex = dots.length - 1;
+    currentTeamIndex = Math.min(Math.max(currentTeamIndex + dir, 0), maxIndex);
+    track.scrollTo({ left: currentTeamIndex * track.clientWidth, behavior: 'smooth' });
+    updateTeamDots(currentTeamIndex);
   }
 
   function scrollTeamTo(index){
     var track = document.getElementById('teamTrack');
+    currentTeamIndex = index;
     track.scrollTo({ left: index * track.clientWidth, behavior: 'smooth' });
+    updateTeamDots(currentTeamIndex);
   }
 
-  function updateTeamDots(){
+  function updateTeamDots(forcedIndex){
     var track = document.getElementById('teamTrack');
     var dots = document.querySelectorAll('#teamDots .team-dot');
-    var index = Math.round(track.scrollLeft / track.clientWidth);
+    var index = (forcedIndex !== undefined) ? forcedIndex : Math.round(track.scrollLeft / track.clientWidth);
+    currentTeamIndex = index;
     dots.forEach(function(dot, i){
       dot.classList.toggle('active', i === index);
     });
