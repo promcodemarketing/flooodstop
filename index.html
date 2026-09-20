@@ -277,30 +277,11 @@
   .compare .sandbags{ font-size:.9rem; color:var(--text-faint); }
   .compare .fs{ font-weight:600; color:var(--text); font-size:.95rem; }
   .compare > div:nth-last-child(-n+3){ border-bottom:none; }
+  .compare-wrap{ overflow-x:auto; }
+
   @media (max-width:720px){
-  .compare{ grid-template-columns:1fr; }
-  .compare .h{ display:none; }
-  .compare > div{ border-bottom:none; padding:.5rem 1.3rem; }
-  .compare .row-label{
-    padding-top:1.3rem;
-    font-weight:600;
-    color:var(--text);
-    border-top:1px solid var(--border-soft);
+    .compare{ min-width:720px; }
   }
-  .compare .sandbags::before{
-    content:"Worki z piaskiem: ";
-    color:var(--text-faint);
-    font-weight:600;
-  }
-  .compare .fs::before{
-    content:"Flood Stop: ";
-    color:var(--accent);
-    font-weight:600;
-  }
-  .compare > div:last-child{
-    padding-bottom:1.3rem;
-  }
-}
 
   /* ---------- team ---------- */
   .team-grid{ margin-top:3rem; }
@@ -715,14 +696,15 @@
     <div class="wrap">
       <div class="eyebrow">Flood Stop kontra worki z piaskiem</div>
       <h2>Ten sam efekt.<br>Ułamek czasu i&nbsp;ludzi.</h2>
+      <div class="compare-wrap">
+        <div class="compare">
+          <div class="h"></div><div class="h">Worki z piaskiem</div><div class="h win">Flood Stop</div>
 
-      <div class="compare">
-        <div class="h"></div><div class="h">Worki z piaskiem</div><div class="h win">Flood Stop</div>
-
-        <div class="row-label">Czas przygotowania 10 m bariery</div><div class="sandbags">Wiele godzin pracy</div><div class="fs">5–6 minut</div>
-        <div class="row-label">Liczba osób do rozstawienia</div><div class="sandbags">Kilkanaście</div><div class="fs">2–3 osoby</div>
-        <div class="row-label">Wielokrotność użycia</div><div class="sandbags">Nie — po akcji do utylizacji</div><div class="fs">Tak — min. 10 lat</div>
-        <div class="row-label">Miejsce składowania</div><div class="sandbags">Duża powierzchnia magazynowa</div><div class="fs">110 × 40 × 5 cm na segment</div>
+          <div class="row-label">Czas przygotowania 10 m bariery</div><div class="sandbags">Wiele godzin pracy</div><div class="fs">5–6 minut</div>
+          <div class="row-label">Liczba osób do rozstawienia</div><div class="sandbags">Kilkanaście</div><div class="fs">2–3 osoby</div>
+          <div class="row-label">Wielokrotność użycia</div><div class="sandbags">Nie — po akcji do utylizacji</div><div class="fs">Tak — min. 10 lat</div>
+          <div class="row-label">Miejsce składowania</div><div class="sandbags">Duża powierzchnia magazynowa</div><div class="fs">110 × 40 × 5 cm na segment</div>
+        </div>
       </div>
     </div>
   </section>
