@@ -25,6 +25,7 @@
     --danger-line:   #d94f3d;
     --radius:        2px;
     --content-w:     1120px;
+    --table-line:    #3d4046;
     --font-display:  'Big Shoulders Display', 'Arial Narrow', sans-serif;
     --font-body:     'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
     --font-mono:     'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
@@ -41,11 +42,13 @@
 
   [data-theme="light"]{
     --bg:            #ffffff;
-    --bg-alt:        #e9e9e9;
-    --surface:       #f7f7f2;
-    --surface-2:     #ececE3;
+    --bg-alt:        #f6f6f6;
+    --accent:        #ffc400;
+    --surface:       #f3f3f3;
+    --surface-2:     #e3e3e3;
     --border:        #d9d9d1;
     --border-soft:   #e4e4dc;
+    --table-line:    #b3b3aa;
     --text:          #17181b;
     --text-muted:    #4a4d52;
     --text-faint:    #6c7075;
@@ -59,7 +62,6 @@
     --illus-badge-bg: #17181b;
     --illus-dot:      rgba(0,0,0,.05);
   }
-
 
   *,*::before,*::after{ box-sizing:border-box; }
   html{ background:var(--bg); }
@@ -128,7 +130,7 @@
   }
   .nav{
     max-width:var(--content-w); margin:0 auto; padding:0 1.75rem;
-    height:64px; display:flex; align-items:center; justify-content:space-between; gap:2rem;
+    height:64px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
   }
   .logo{
     font-family:var(--font-display); font-weight:800; font-size:1.35rem;
@@ -137,30 +139,30 @@
   }
   .logo span{ color:var(--accent); }
   .nav-links{
-    display:flex; gap:1.9rem; list-style:none; margin:0; padding:0;
+    display:flex; gap:1.5rem; list-style:none; margin:0; padding:0;
     font-size:.86rem; letter-spacing:.02em;
   }
   .nav-links a{ text-decoration:none; color:var(--text-muted); transition:color .15s ease; }
   .nav-links a:hover, .nav-links a:focus-visible{ color:var(--text); }
-  .nav-cta{ display:flex; align-items:center; }
-  .nav-toggle{ display:none; }
+  .nav-controls{ display:flex; align-items:center; gap:1.6rem; }
 
-  @media (max-width:840px){
+  @media (max-width:960px){
     .nav-links{ display:none; }
-    .nav-cta .btn{ padding:.55rem .9rem; font-size:.78rem; }
   }
 
-  .theme-toggle{ display:flex; align-items:center; gap:.4rem; margin-left:.5rem; }
-  .theme-btn{
-    width:34px; height:34px;
+  .theme-toggle, .lang-toggle{ display:flex; align-items:center; gap:.25rem; }
+  .theme-btn, .lang-btn{
+    height:32px;
     display:flex; align-items:center; justify-content:center;
     background:transparent; border:1px solid var(--border); border-radius:var(--radius);
-    color:var(--text-faint); cursor:pointer; padding:0;
+    color:var(--text-faint); cursor:pointer; padding:0 .5rem;
+    font-family:var(--font-mono); font-size:.75rem; font-weight:600;
     transition:color .15s ease, border-color .15s ease, background .15s ease;
   }
-  .theme-btn svg{ width:18px; height:18px; }
-  .theme-btn:hover{ color:var(--text); border-color:var(--text-muted); }
-  .theme-btn.active{ color:var(--accent-ink); background:var(--accent); border-color:var(--accent); }
+  .theme-btn{ width:32px; padding:0; }
+  .theme-btn svg{ width:16px; height:16px; }
+  .theme-btn:hover, .lang-btn:hover{ color:var(--text); border-color:var(--text-muted); }
+  .theme-btn.active, .lang-btn.active{ color:var(--accent-ink); background:var(--accent); border-color:var(--accent); }
 
   /* ---------- buttons ---------- */
   .btn{
@@ -218,12 +220,12 @@
   /* ---------- mechanism / diagram ---------- */
   .mech{ display:grid; grid-template-columns:.95fr 1.05fr; gap:3.5rem; align-items:center; }
   @media (max-width:900px){ .mech{ grid-template-columns:1fr; } }
-  figure.diagram{ margin:0; background:#1c1e22; border:1px solid #313338; padding:1.25rem 1.25rem .5rem; }
+  figure.diagram{ margin:0; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:1.25rem 1.25rem .5rem; }
   figure.diagram svg{ display:block; width:100%; height:auto; }
-  figure.diagram figcaption{ font-size:.82rem; color:#9aa0a7; padding:.9rem .2rem 1.1rem; border-top:1px dashed #313338; margin-top:.6rem; }
+  figure.diagram figcaption{ font-size:.82rem; color:var(--text-muted); padding:.9rem .2rem 1.1rem; border-top:1px dashed var(--border); margin-top:.6rem; }
 
   /* ---------- feature grid ---------- */
-  .grid-4{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border-soft); border:1px solid var(--border-soft); margin-top:3rem; }
+  .grid-4{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-soft); border:1px solid var(--border-soft); margin-top:3rem; }
   @media (max-width:900px){ .grid-4{ grid-template-columns:1fr 1fr; } }
   @media (max-width:520px){ .grid-4{ grid-template-columns:1fr; } }
   .feature{ background:var(--bg); padding:2.1rem 1.6rem; }
@@ -236,8 +238,8 @@
   .spec-block + .spec-block{ margin-top:3.25rem; }
   .spec-label{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); margin-bottom:.9rem; }
   table{ width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:.92rem; }
-  .table-wrap{ overflow-x:auto; border:1px solid var(--border-soft); }
-  th,td{ text-align:left; padding:.8rem 1.1rem; border-bottom:1px solid var(--border-soft); white-space:nowrap; }
+  .table-wrap{ overflow-x:auto; border:1px solid var(--table-line); }
+  th,td{ text-align:left; padding:.8rem 1.1rem; border-bottom:1px solid var(--table-line); white-space:nowrap; }
   thead th{ background:var(--surface-2); color:var(--text-muted); font-weight:600; letter-spacing:.02em; text-transform:uppercase; font-size:.72rem; }
   tbody tr:last-child td{ border-bottom:none; }
   tbody tr:hover{ background:var(--surface); }
@@ -251,8 +253,8 @@
   /* ---------- process ---------- */
   .process{ position:relative; margin-top:3rem; }
   .process-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
-  .process-item{ display:grid; grid-template-columns:64px 1fr; gap:1.75rem; padding-block:1.6rem; border-top:1px solid var(--border-soft); }
-  .process-item:last-child{ border-bottom:1px solid var(--border-soft); }
+  .process-item{ display:grid; grid-template-columns:64px 1fr; gap:1.75rem; padding-block:1.6rem; border-top:1px solid var(--table-line); }
+  .process-item:last-child{ border-bottom:1px solid var(--table-line); }
   .process-num{
     font-family:var(--font-display); font-weight:800; font-size:1.9rem; color:var(--accent-dim);
     font-variant-numeric:tabular-nums;
@@ -269,8 +271,8 @@
   .case h3{ font-size:.95rem; }
 
   /* ---------- comparison ---------- */
-  .compare{ margin-top:3rem; display:grid; grid-template-columns:1.3fr 1fr 1fr; border:1px solid var(--border-soft); }
-  .compare > div{ padding:1.1rem 1.3rem; border-bottom:1px solid var(--border-soft); display:flex; align-items:center; }
+  .compare{ margin-top:3rem; display:grid; grid-template-columns:1.3fr 1fr 1fr; border:1px solid var(--table-line); }
+  .compare > div{ padding:1.1rem 1.3rem; border-bottom:1px solid var(--table-line); display:flex; align-items:center; }
   .compare .h{ background:var(--surface-2); font-family:var(--font-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); }
   .compare .h.win{ color:var(--accent); }
   .compare .row-label{ color:var(--text-muted); font-size:.9rem; }
@@ -311,7 +313,7 @@
   .team-track .team-card{
     flex:0 0 100%;
     scroll-snap-align:start;
-    margin-top:0; /* było na .team-grid teraz nieużywane */
+    margin-top:0;
   }
   .team-arrow{
     position:absolute;
@@ -332,7 +334,7 @@
   .team-arrow.prev{ left:-3rem; }
   .team-arrow.next{ right:-3rem; }
   @media (max-width:640px){
-    .team-arrow{ display:none; } /* na mobilnej user po prostu swipeuje palcem */
+    .team-arrow{ display:none; }
   }
   .team-dots{
     display:flex;
@@ -351,7 +353,6 @@
   }
   .team-dot:hover{ background:var(--text-muted); }
   .team-dot.active{ background:var(--accent); }
-
 
   /* ---------- CTA / contact ---------- */
   .cta-section{ background:var(--bg-alt); }
@@ -382,8 +383,7 @@
     .reveal-init.in{ opacity:1; transform:none; }
   }
 
-  /* ---------- email copy toast ---------- */
-
+  /* ---------- TOAST ---------- */
   .toast{
     position:fixed;
     bottom:2rem;
@@ -406,8 +406,6 @@
     opacity:1;
     transform:translateX(-50%) translateY(0);
   }
-
-  
 </style>
 </head>
 <body>
@@ -415,22 +413,32 @@
   <nav class="nav">
     <a class="logo" href="#top">FLOOD<span>STOP</span></a>
     <ul class="nav-links">
-      <li><a href="#jak-dziala">Jak działa</a></li>
-      <li><a href="#zalety">Zalety</a></li>
-      <li><a href="#dane-techniczne">Dane techniczne</a></li>
-      <li><a href="#grafika">W akcji</a></li>
-      <li><a href="#wdrozenie">Wdrożenie</a></li>
-      <li><a href="#zastosowania">Zastosowania</a></li>
-      <li><a href="#zespol">Zespół</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#jak-dziala" data-i18n="nav.howItWorks">Jak działa</a></li>
+      <li><a href="#zalety" data-i18n="nav.advantages">Zalety</a></li>
+      <li><a href="#dane-techniczne" data-i18n="nav.specs">Dane techniczne</a></li>
+      <li><a href="#grafika" data-i18n="nav.inAction">W akcji</a></li>
+      <li><a href="#wdrozenie" data-i18n="nav.deployment">Wdrożenie</a></li>
+      <li><a href="#zastosowania" data-i18n="nav.applications">Zastosowania</a></li>
+      <li><a href="#zespol" data-i18n="nav.team">Zespół</a></li>
+      <li><a href="#kontakt" data-i18n="nav.contact">Kontakt</a></li>
     </ul>
-    <div class="theme-toggle" role="group" aria-label="Wybór motywu">
-      <button class="theme-btn" id="themeSun" onclick="setTheme('light')" aria-label="Motyw jasny" title="Motyw jasny">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <button class="theme-btn" id="themeMoon" onclick="setTheme('dark')" aria-label="Motyw ciemny" title="Motyw ciemny">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5Z"/></svg>
-      </button>
+    
+    <div class="nav-controls">
+
+      <div class="lang-toggle" role="group" aria-label="Wybór języka">
+        <button class="lang-btn active" id="langPl" onclick="setLanguage('pl')">PL</button>
+        <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" id="langDe" onclick="setLanguage('de')">DE</button>
+      </div>
+
+      <div class="theme-toggle" role="group" aria-label="Wybór motywu">
+        <button class="theme-btn" id="themeSun" onclick="setTheme('light')" aria-label="Motyw jasny" title="Motyw jasny">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="theme-btn" id="themeMoon" onclick="setTheme('dark')" aria-label="Motyw ciemny" title="Motyw ciemny">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5Z"/></svg>
+        </button>
+      </div>
     </div>
   </nav>
 </header>
@@ -444,23 +452,23 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">Mobilna zapora przeciwpowodziowa</div>
-          <h1>Jedna bariera.<br>Zero worków&nbsp;z&nbsp;piaskiem.</h1>
-          <p class="lede" style="margin-top:1.3rem;">
-            Flood Stop to rękaw przeciwpowodziowy, który dwie–trzy osoby rozstawiają
+          <div class="eyebrow" data-i18n="hero.eyebrow">Mobilna zapora przeciwpowodziowa</div>
+          <h1 data-i18n="hero.title">Jedna bariera.<br>Zero worków&nbsp;z&nbsp;piaskiem.</h1>
+          <p class="lede" style="margin-top:1.3rem;" data-i18n="hero.desc">
+            Flood Stop to rękaw przeciwpowodziowy, który dwie osoby rozstawiają
             i napełniają wodą w kilka minut. Jeden 10-metrowy segment zatrzymuje tyle
-            wody, co ok. 170 worków z piaskiem — i po oczyszczeniu wraca do magazynu,
+            wody, co 170 worków z piaskiem a po oczyszczeniu wraca do magazynu,
             gotowy na następną akcję.
           </p>
           <div class="btn-row" style="margin-top:2.2rem;">
-            <a class="btn btn-primary" href="#kontakt">Zapytaj o wycenę</a>
-            <a class="btn btn-ghost" href="#dane-techniczne">Zobacz dane techniczne</a>
+            <a class="btn btn-primary" href="#kontakt" data-i18n="hero.btnPrice">Zapytaj o cenę</a>
+            <a class="btn btn-ghost" href="#dane-techniczne" data-i18n="hero.btnSpecs">dane techniczne</a>
           </div>
 
           <div class="hero-stats">
-            <div class="stat"><span class="n">170×</span><span class="l">worków z piaskiem zastępuje jeden segment</span></div>
-            <div class="stat"><span class="n">5–6&nbsp;min</span><span class="l">czas napełnienia wodą z motopompy</span></div>
-            <div class="stat"><span class="n">10&nbsp;lat</span><span class="l">minimalna żywotność przy prawidłowym przechowywaniu</span></div>
+            <div class="stat"><span class="n">170×</span><span class="l" data-i18n="hero.stat1">worków z piaskiem zastępuje jeden segment</span></div>
+            <div class="stat"><span class="n">5&nbsp;min</span><span class="l" data-i18n="hero.stat2">czas napełnienia wodą z motopompy</span></div>
+            <div class="stat"><span class="n">10&nbsp;lat</span><span class="l" data-i18n="hero.stat3">minimalna żywotność przy prawidłowym przechowywaniu</span></div>
           </div>
         </div>
 
@@ -472,19 +480,19 @@
   <section id="jak-dziala" class="stripe">
     <div class="wrap mech">
       <div>
-        <div class="eyebrow">Zasada działania</div>
-        <h2>Woda przeciw wodzie</h2>
-        <p class="body-copy" style="margin-top:1.2rem;">
+        <div class="eyebrow" data-i18n="howItWorks.eyebrow">Zasada działania</div>
+        <h2 data-i18n="howItWorks.title">Woda przeciw wodzie</h2>
+        <p class="body-copy" style="margin-top:1.2rem;" data-i18n="howItWorks.desc1">
           Flood Stop pracuje w układzie dwupowłokowym: zewnętrzna, wytrzymała
           powłoka nadaje kształt, a wnętrze wypełnia się wodą pobraną z hydrantu,
-          motopompy albo — w ostateczności — wprost z powodzi. Powstały w ten
+          motopompy albo - w ostateczności - wprost z powodzi. Powstały w ten
           sposób słup wody działa jak przeciwciężar: im silniejsze parcie wody
-          powodziowej z zewnątrz, tym mocniej rękaw dociska się do podłoża po
+          powodziowej z zewnątrz, tym mocniej rękaw dociskany jest do podłoża po
           stronie chronionej.
         </p>
-        <p class="body-copy" style="margin-top:1rem;">
+        <p class="body-copy" style="margin-top:1rem;" data-i18n="howItWorks.desc2">
           Elastyczna, spłaszczona forma pozwala barierze dopasować się do
-          nierównego terenu — kostki brukowej, trawnika, krawężnika — bez
+          nierównego terenu - kostki brukowej, trawnika, krawężnika - bez
           konieczności budowania podsypki czy szalunku, jak w przypadku murków
           przeciwpowodziowych.
         </p>
@@ -497,14 +505,14 @@
 
           <!-- floodwater (left) -->
           <path d="M20,255 L20,150 L90,138 L160,150 L230,140 L255,150 L255,255 Z" fill="#3f7fb0" opacity="0.55"/>
-          <text x="34" y="120" font-family="IBM Plex Mono, monospace" font-size="13" fill="#eef0f1" opacity="0.9">WODA POWODZIOWA</text>
+          <!--<text x="34" y="120" font-family="IBM Plex Mono, monospace" font-size="13" fill="#eef0f1" opacity="0.9">WODA POWODZIOWA</text>-->
 
           <!-- protected side house -->
           <g opacity="0.9">
             <rect x="500" y="200" width="70" height="55" fill="none" stroke="currentColor" stroke-width="2"/>
             <polygon points="495,200 535,168 575,200" fill="none" stroke="currentColor" stroke-width="2"/>
           </g>
-          <text x="470" y="150" font-family="IBM Plex Mono, monospace" font-size="13" fill="#eef0f1" opacity="0.9">STREFA CHRONIONA</text>
+          <!--<text x="470" y="150" font-family="IBM Plex Mono, monospace" font-size="13" fill="#eef0f1" opacity="0.9">STREFA CHRONIONA</text>-->
 
           <!-- barrier cross-section -->
           <ellipse cx="345" cy="205" rx="92" ry="58" fill="#294a63" stroke="#f4c21a" stroke-width="4"/>
@@ -518,18 +526,18 @@
           </defs>
           <line x1="245" y1="205" x2="278" y2="205" stroke="currentColor" stroke-width="2" marker-end="url(#fs-arrow)"/>
           <line x1="412" y1="228" x2="379" y2="228" stroke="#f4c21a" stroke-width="2" marker-end="url(#fs-arrow)"/>
-
+          <!--
           <text x="176" y="196" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#eef0f1">parcie wody</text>
           <text x="176" y="210" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#eef0f1">powodziowej</text>
 
           <text x="392" y="246" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#f4c21a">przeciwciężar</text>
           <text x="392" y="260" font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#f4c21a">wody wewnętrznej</text>
-
+          -->
           <!-- valve -->
           <circle cx="345" cy="255" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
-          <text x="357" y="286" font-family="IBM Plex Mono, monospace" font-size="11" fill="#9aa0a7">wlot / spust wody</text>
+          <!--<text x="357" y="286" font-family="IBM Plex Mono, monospace" font-size="11" fill="#9aa0a7">wlot / spust wody</text>-->
         </svg>
-        <figcaption>Przekrój bariery: wewnętrzny słup wody równoważy parcie powodzi z zewnątrz — dociskając rękaw do podłoża po stronie chronionej.</figcaption>
+        <!--<figcaption>Przekrój bariery: wewnętrzny słup wody równoważy parcie powodzi z zewnątrz - dociskając rękaw do podłoża po stronie chronionej.</figcaption> -->
       </figure>
     </div>
   </section>
@@ -537,29 +545,24 @@
   <!-- ZALETY -->
   <section id="zalety">
     <div class="wrap">
-      <div class="eyebrow">Dlaczego nie worki z piaskiem</div>
-      <h2>Cztery powody, dla których<br>ekipy przechodzą na Flood&nbsp;Stop</h2>
+      <div class="eyebrow" data-i18n="advantages.eyebrow">Dlaczego nie worki z piaskiem</div>
+      <h2 data-i18n="advantages.title">Trzy razy tak dla Flood&nbsp;Stop</h2>
 
       <div class="grid-4">
         <div class="feature">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-          <h3>Szybkość</h3>
-          <p>Rozstawienie i napełnienie 10-metrowego segmentu zajmuje 2–3 osobom kilka minut — nie godziny napełniania worków.</p>
-        </div>
-        <div class="feature">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4"/><rect x="4" y="10" width="16" height="4"/><rect x="4" y="16" width="16" height="4"/></svg>
-          <h3>Wydajność</h3>
-          <p>Jeden segment zastępuje ok. 170 worków z piaskiem — bez ich transportu, napełniania i późniejszej utylizacji.</p>
+          <h3 data-i18n="advantages.feat1.title">Szybkość i Wydajność</h3>
+          <p data-i18n="advantages.feat1.desc">Rozstawienie 10-metrowego segmentu zajmuje 2 osobom kilka minut, co zastępuje 3 godziny napełniania i noszenia 170 worków z piaskiem.</p>
         </div>
         <div class="feature">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 4v4h-4M6 20v-4h4"/></svg>
-          <h3>Wielokrotne użycie</h3>
-          <p>Po opróżnieniu i oczyszczeniu rękaw wraca do magazynu — minimum 10 lat eksploatacji przy właściwym przechowywaniu.</p>
+          <h3 data-i18n="advantages.feat2.title">Wielokrotne użycie</h3>
+          <p data-i18n="advantages.feat2.desc">Po opróżnieniu i oczyszczeniu rękaw wraca do magazynu - 10 lat eksploatacji przy właściwym przechowywaniu.</p>
         </div>
         <div class="feature">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 3.5 6 7 6 10.5A6 6 0 0 1 6 13.5C6 10 9 6.5 12 3Z"/></svg>
-          <h3>Szczelna bariera</h3>
-          <p>Elastyczna, ciągła powłoka dopasowuje się do nierównego terenu — bez szczelin, przez które worki zwykle przeciekają.</p>
+          <h3 data-i18n="advantages.feat3.title">Szczelność i odporność</h3>
+          <p data-i18n="advantages.feat3.desc">Elastyczna powłoka szczelnie przylega do nierównego terenu - bez szczelin, przez które worki zwykle przepuszczają wodę. Atestowana odporność na zewnętrzne czynniki chemiczne i mechaniczne.</p>
         </div>
       </div>
     </div>
@@ -568,48 +571,25 @@
   <!-- DANE TECHNICZNE -->
   <section id="dane-techniczne" class="stripe">
     <div class="wrap">
-      <div class="eyebrow">Specyfikacja</div>
-      <h2>Dane techniczne</h2>
+      <div class="eyebrow" data-i18n="specs.eyebrow">Specyfikacja</div>
+      <h2 data-i18n="specs.title">Dane techniczne</h2>
 
       <div class="spec-block">
-        <div class="spec-label">Parametry wspólne — jeden segment</div>
         <div class="table-wrap">
           <table>
             <tbody>
-              <tr><td>Długość robocza</td><td class="num">10 m</td></tr>
-              <tr><td>Pojemność wody</td><td class="num">ok. 3000 l</td></tr>
-              <tr><td>Wysokość piętrzenia wody</td><td class="num">40–50 cm</td></tr>
-              <tr><td>Szerokość podstawy</td><td class="num">ok. 1,0 m</td></tr>
-              <tr><td>Masa segmentu (pusty)</td><td class="num">ok. 10 kg</td></tr>
-              <tr><td>Wymiary transportowe (złożony)</td><td class="num">110 × 40 × 5 cm</td></tr>
-              <tr><td>Czas napełnienia</td><td class="num">5–6 min · motopompa 800–1000 l/min</td></tr>
-              <tr><td>Żywotność</td><td class="num">min. 10 lat</td></tr>
-              <tr><td>Kompatybilność</td><td>hydranty W52, motopompy, wozy gaśnicze PSP; woda czysta lub powodziowa</td></tr>
+              <tr><td data-i18n="specs.length">Długość</td><td class="num">10 m</td></tr>
+              <tr><td data-i18n="specs.capacity">Pojemność</td><td class="num" data-i18n="specs.capacityVal">ok. 3000 l wody</td></tr>
+              <tr><td data-i18n="specs.height">Wysokość piętrzenia wody</td><td class="num" data-i18n="specs.heightVal">45 cm jeden segment (70cm piramida 3 segmenty)</td></tr>
+              <tr><td data-i18n="specs.width">Szerokość podstawy</td><td class="num">1,0 m</td></tr>
+              <tr><td data-i18n="specs.weight">Masa segmentu (pusty)</td><td class="num">10 kg</td></tr>
+              <tr><td data-i18n="specs.dimensions">Wymiary transportowe (złożony)</td><td class="num">110 × 40 × 5 cm</td></tr>
+              <tr><td data-i18n="specs.fillTime">Czas napełnienia</td><td class="num" data-i18n="specs.fillTimeVal">5 min · motopompa 800 l/min</td></tr>
+              <tr><td data-i18n="specs.lifespan">Żywotność</td><td class="num" data-i18n="specs.lifespanVal">10 lat</td></tr>
+              <tr><td data-i18n="specs.compat">Kompatybilność</td><td data-i18n="specs.compatVal">hydranty, Storz, motopompy, wozy gaśnicze PSP; woda czysta lub powodziowa</td></tr>
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div class="spec-block">
-        <div class="spec-label">Warianty materiałowe</div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Parametr</th><th class="variant-name">Folia–folia</th><th class="variant-name">Poliester–folia</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Materiał</td><td>Polietylen / polietylen</td><td>Poliester wzmocniony / folia</td></tr>
-              <tr><td>Zawory</td><td>Brak — napełnianie otwartym końcem</td><td>Wlot/spust 2″, odpowietrznik 1″, końcówki wymienne</td></tr>
-              <tr><td>Odporność mechaniczna</td><td>Standardowa — unikać ostrych krawędzi</td><td>Podwyższona — teren trudny, gruz, ostre elementy</td></tr>
-              <tr><td>Masa</td><td class="num">Lżejszy wariant</td><td class="num">Cięższy, bardziej odporny</td></tr>
-              <tr><td>Rekomendacja</td><td>Akcje doraźne, magazyn gminny</td><td>Jednostki PSP, praca w trudnym terenie</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="note-strip">
-        Przechowywanie: miejsce suche i chłodne, z dala od promieniowania UV i mrozu. Zalecany coroczny przegląd techniczny segmentu.
       </div>
     </div>
   </section>
@@ -618,20 +598,8 @@
   <section id="grafika">
     <div class="wrap mech">
       <div>
-        <div class="eyebrow">W akcji</div>
-        <h2>Zobacz w praktyce</h2>
-        <p class="body-copy" style="margin-top:1.2rem;">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat.
-        </p>
-        <p class="body-copy" style="margin-top:1rem;">
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-          non proident, sunt in culpa qui officia deserunt mollit anim id est
-          laborum.
-        </p>
+        <div class="eyebrow" data-i18n="action.eyebrow">W akcji</div>
+        <h2 data-i18n="action.title">Zobacz jak działa Flood Stop</h2>
       </div>
 
       <figure style="margin:0; background:var(--surface); border:1px solid var(--border); line-height:0;">
@@ -644,31 +612,31 @@
   <!-- WDROŻENIE -->
   <section id="wdrozenie" class="stripe">
     <div class="wrap">
-      <div class="eyebrow">Procedura</div>
-      <h2>Wdrożenie w pięciu krokach</h2>
-      <p class="lede" style="margin-top:1rem;">Cała procedura — od rozwinięcia po gotową barierę — zajmuje 2–3 osobom kilka minut.</p>
+      <div class="eyebrow" data-i18n="process.eyebrow">Procedura</div>
+      <h2 data-i18n="process.title">Wdrożenie w pięciu krokach</h2>
+      <p class="lede" style="margin-top:1rem;" data-i18n="process.subtitle">Cała procedura - od rozwinięcia po gotową barierę - zajmuje 2 osobom kilka minut.</p>
 
       <div class="process">
         <ol class="process-list">
           <li class="process-item">
             <span class="process-num">01</span>
-            <div><h3>Przygotowanie podłoża</h3><p>Usunięcie ostrych elementów z trasy ułożenia rękawa i wyznaczenie linii obrony.</p></div>
+            <div><h3 data-i18n="process.step1.title">Przygotowanie podłoża</h3><p data-i18n="process.step1.desc">Usunięcie ostrych elementów i wyznaczenie linii obrony.</p></div>
           </li>
           <li class="process-item">
             <span class="process-num">02</span>
-            <div><h3>Rozwinięcie rękawa</h3><p>Segmenty rozwija się i łączy na potrzebną długość wzdłuż wyznaczonej linii.</p></div>
+            <div><h3 data-i18n="process.step2.title">Rozwinięcie rękawa</h3><p data-i18n="process.step2.desc">Segmenty rozwija się i łączy na potrzebną długość wzdłuż wyznaczonej linii.</p></div>
           </li>
           <li class="process-item">
             <span class="process-num">03</span>
-            <div><h3>Podłączenie źródła wody</h3><p>Hydrant (złącze W52), motopompa lub wóz bojowy — woda czysta albo bezpośrednio z powodzi.</p></div>
+            <div><h3 data-i18n="process.step3.title">Podłączenie źródła wody</h3><p data-i18n="process.step3.desc">Hydrant, motopompa lub wóz bojowy + woda czysta albo bezpośrednio z powodzi.</p></div>
           </li>
           <li class="process-item">
             <span class="process-num">04</span>
-            <div><h3>Napełnienie</h3><p>5–6 minut przy wydajności pompy 800–1000 l/min, aż segment osiągnie pełną wysokość piętrzenia.</p></div>
+            <div><h3 data-i18n="process.step4.title">Napełnienie</h3><p data-i18n="process.step4.desc">5 minut przy wydajności pompy 800 l/min, aż segment osiągnie pełną wysokość.</p></div>
           </li>
           <li class="process-item">
             <span class="process-num">05</span>
-            <div><h3>Zamknięcie i kontrola</h3><p>Zamknięcie zaworów, sprawdzenie przylegania do podłoża na całej długości bariery.</p></div>
+            <div><h3 data-i18n="process.step5.title">Zamknięcie i kontrola</h3><p data-i18n="process.step5.desc">Zamknięcie otworów, sprawdzenie przylegania do podłoża.</p></div>
           </li>
         </ol>
       </div>
@@ -678,15 +646,15 @@
   <!-- ZASTOSOWANIA -->
   <section id="zastosowania" >
     <div class="wrap">
-      <div class="eyebrow">Zastosowania</div>
-      <h2>Dla kogo pracuje Flood&nbsp;Stop</h2>
+      <div class="eyebrow" data-i18n="cases.eyebrow">Zastosowania</div>
+      <h2 data-i18n="cases.title">Dla kogo pracuje Flood&nbsp;Stop</h2>
 
       <div class="cases">
-        <div class="case"><span class="tag-mono">01</span><h3>Państwowa i&nbsp;Ochotnicza Straż Pożarna</h3></div>
-        <div class="case"><span class="tag-mono">02</span><h3>Gminne centra zarządzania kryzysowego</h3></div>
-        <div class="case"><span class="tag-mono">03</span><h3>Infrastruktura krytyczna — ujęcia wody, stacje uzdatniania</h3></div>
-        <div class="case"><span class="tag-mono">04</span><h3>Drogi, mosty i&nbsp;obiekty przemysłowe</h3></div>
-        <div class="case"><span class="tag-mono">05</span><h3>Posesje i&nbsp;obiekty prywatne</h3></div>
+        <div class="case"><span class="tag-mono">01</span><h3 data-i18n="cases.item1">Państwowa i&nbsp;Ochotnicza Straż Pożarna</h3></div>
+        <div class="case"><span class="tag-mono">02</span><h3 data-i18n="cases.item2">Gminne centra zarządzania kryzysowego</h3></div>
+        <div class="case"><span class="tag-mono">03</span><h3 data-i18n="cases.item3">Infrastruktura krytyczna - ujęcia wody, stacje uzdatniania</h3></div>
+        <div class="case"><span class="tag-mono">04</span><h3 data-i18n="cases.item4">Drogi, mosty i&nbsp;obiekty przemysłowe</h3></div>
+        <div class="case"><span class="tag-mono">05</span><h3 data-i18n="cases.item5">Posesje i&nbsp;obiekty prywatne</h3></div>
       </div>
     </div>
   </section>
@@ -694,16 +662,16 @@
   <!-- PORÓWNANIE -->
   <section id="porownanie" class="stripe">
     <div class="wrap">
-      <div class="eyebrow">Flood Stop kontra worki z piaskiem</div>
-      <h2>Ten sam efekt.<br>Ułamek czasu i&nbsp;ludzi.</h2>
+      <div class="eyebrow" data-i18n="compare.eyebrow">Flood Stop kontra worki z piaskiem</div>
+      <h2 data-i18n="compare.title">Ten sam efekt.<br>Ułamek czasu i&nbsp;ludzi.</h2>
       <div class="compare-wrap">
         <div class="compare">
-          <div class="h"></div><div class="h">Worki z piaskiem</div><div class="h win">Flood Stop</div>
+          <div class="h"></div><div class="h" data-i18n="compare.colSandbags">Worki z piaskiem</div><div class="h win">Flood Stop</div>
 
-          <div class="row-label">Czas przygotowania 10 m bariery</div><div class="sandbags">Wiele godzin pracy</div><div class="fs">5–6 minut</div>
-          <div class="row-label">Liczba osób do rozstawienia</div><div class="sandbags">Kilkanaście</div><div class="fs">2–3 osoby</div>
-          <div class="row-label">Wielokrotność użycia</div><div class="sandbags">Nie — po akcji do utylizacji</div><div class="fs">Tak — min. 10 lat</div>
-          <div class="row-label">Miejsce składowania</div><div class="sandbags">Duża powierzchnia magazynowa</div><div class="fs">110 × 40 × 5 cm na segment</div>
+          <div class="row-label" data-i18n="compare.row1">Czas przygotowania 10 m bariery</div><div class="sandbags" data-i18n="compare.row1Sandbags">Wiele godzin pracy</div><div class="fs" data-i18n="compare.row1Fs">5-6 minut</div>
+          <div class="row-label" data-i18n="compare.row2">Liczba osób do rozstawienia</div><div class="sandbags" data-i18n="compare.row2Sandbags">Kilkanaście</div><div class="fs" data-i18n="compare.row2Fs">2-3 osoby</div>
+          <div class="row-label" data-i18n="compare.row3">Wielokrotność użycia</div><div class="sandbags" data-i18n="compare.row3Sandbags">Nie - po akcji do utylizacji</div><div class="fs" data-i18n="compare.row3Fs">Tak - min. 10 lat</div>
+          <div class="row-label" data-i18n="compare.row4">Miejsce składowania</div><div class="sandbags" data-i18n="compare.row4Sandbags">Duża powierzchnia magazynowa</div><div class="fs" data-i18n="compare.row4Fs">110 × 40 × 5 cm na segment</div>
         </div>
       </div>
     </div>
@@ -712,8 +680,8 @@
   <!-- ZESPÓŁ -->
   <section id="zespol">
     <div class="wrap">
-      <div class="eyebrow">Nasz zespół</div>
-      <h2>Zapraszamy do kontaktu bezpośredniego<br>z naszymi handlowcami</h2>
+      <div class="eyebrow" data-i18n="team.eyebrow">Nasz zespół</div>
+      <h2 data-i18n="team.title">Zapraszamy do kontaktu<br>z naszym partnerem handlowym</h2>
       <div class="team-carousel">
         <button class="team-arrow prev" onclick="scrollTeam(-1)" aria-label="Poprzedni">‹</button>
         <div class="team-track" id="teamTrack">
@@ -749,18 +717,18 @@
                 <rect x="156" y="66" width="8" height="82" fill="#a98a1f"/>
                 <!-- badge -->
                 <circle cx="160" cy="118" r="17" fill="var(--illus-badge-bg)" stroke="#a98a1f" stroke-width="2"/>
-                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">FS</text>
+                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">PL</text>
 
                 <!-- hazard rule footer -->
                 <rect x="0" y="368" width="320" height="12" fill="#f4c21a"/>
               </svg>
             </div>
             <div>
-              <h3 class="team-name">Zygmunt Dworski</h3>
-              <p class="team-role">Specjalista ds. sprzętu ratownictwa cywilnego</p>
+              <h3 class="team-name">AWARES Sp. z o.o.<br>Stanisław Dziedzianowicz</h3>
+              <p class="team-role" data-i18n="team.role1">Specjalista ds. sprzętu ratownictwa cywilnego</p>
               <div class="team-contacts">
-                <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 'zygmunt.dworski@floodstop.pl')">zygmunt.dworski@floodstop.pl</a>
-                <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48510152345')">510 152 345</a>
+                <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 's.dziedzianowicz@awares.pl')">s.dziedzianowicz@awares.pl</a>
+                <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48690998031')">+48 690 998 031</a>
               </div>
             </div>
           </div>
@@ -797,77 +765,27 @@
                 <rect x="156" y="66" width="8" height="82" fill="#a98a1f"/>
                 <!-- badge -->
                 <circle cx="160" cy="118" r="17" fill="var(--illus-badge-bg)" stroke="#a98a1f" stroke-width="2"/>
-                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">FS</text>
+                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">USA</text>
 
                 <!-- hazard rule footer -->
                 <rect x="0" y="368" width="320" height="12" fill="#f4c21a"/>
               </svg>
             </div>
             <div>
-              <h3 class="team-name">Roman Dzwon</h3>
-              <p class="team-role">Głowny koordynator...</p>
+              <h3 class="team-name">Soody Tronson</h3>
+              <p class="team-role" data-i18n="team.role2">Główny koordynator...</p>
               <div class="team-contacts">
                 <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 'losowyemail@floodstop.pl')">losowyemail@floodstop.pl</a>
                 <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48420213769')">420 213 769</a>
               </div>
             </div>
           </div>
-
-        <div class="team-card">
-            <div class="team-portrait">
-              <svg viewBox="0 0 320 380" role="img" aria-label="Ilustracja przedstawiciela handlowego Flood Stop w kasku strażackim">
-                <defs>
-                  <pattern id="team-dots" width="16" height="16" patternUnits="userSpaceOnUse">
-                    <circle cx="1.5" cy="1.5" r="1.4" fill="var(--illus-dot)"/>
-                  </pattern>
-                </defs>
-                <rect width="320" height="380" fill="var(--illus-bg)"/>
-                <rect width="320" height="380" fill="url(#team-dots)"/>
-
-                <!-- shoulders / torso -->
-                <path d="M42,380 L42,318 Q42,262 160,262 Q278,262 278,318 L278,380 Z" fill="var(--illus-torso-1)"/>
-                <path d="M42,380 L42,318 Q42,262 160,262 L160,380 Z" fill="var(--illus-torso-2)"/>
-
-                <!-- neck -->
-                <rect x="140" y="222" width="40" height="46" fill="var(--illus-neck)"/>
-
-                <!-- head -->
-                <ellipse cx="160" cy="188" rx="50" ry="56" fill="var(--illus-head-1)"/>
-                <ellipse cx="138" cy="188" rx="26" ry="56" fill="var(--illus-head-2)"/>
-
-                <!-- helmet brim -->
-                <ellipse cx="160" cy="150" rx="80" ry="15" fill="#a98a1f"/>
-                <ellipse cx="160" cy="146" rx="80" ry="15" fill="#f4c21a"/>
-                <!-- helmet dome -->
-                <path d="M88,148 Q88,68 160,66 Q232,68 232,148 Z" fill="#f4c21a"/>
-                <path d="M88,148 Q88,68 160,66 L160,148 Z" fill="#dba716"/>
-                <!-- helmet ridge -->
-                <rect x="156" y="66" width="8" height="82" fill="#a98a1f"/>
-                <!-- badge -->
-                <circle cx="160" cy="118" r="17" fill="var(--illus-badge-bg)" stroke="#a98a1f" stroke-width="2"/>
-                <text x="160" y="123" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700" fill="#f4c21a" text-anchor="middle">FS</text>
-
-                <!-- hazard rule footer -->
-                <rect x="0" y="368" width="320" height="12" fill="#f4c21a"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="team-name">Krszystof Piątek</h3>
-              <p class="team-role">Specjalista ds. sprzętu ratownictwa cywilnego</p>
-              <div class="team-contacts">
-                <a class="btn btn-ghost" href="#" onclick="copyEmail(event, 'krzysztof.piatek@email.com')">krzysztof.piatek@email.com</a>
-                <a class="btn btn-ghost" href="#" onclick="copyPhone(event, '+48213742069')">213 742 069</a>
-              </div>
-            </div>
-          </div>
-          </div>
+        </div>
         <button class="team-arrow next" onclick="scrollTeam(1)" aria-label="Następny">›</button>
-
       </div>
       <div class="team-dots" id="teamDots">
         <button class="team-dot" onclick="scrollTeamTo(0)" aria-label="Pracownik 1"></button>
         <button class="team-dot" onclick="scrollTeamTo(1)" aria-label="Pracownik 2"></button>
-        <button class="team-dot" onclick="scrollTeamTo(2)" aria-label="Pracownik 3"></button>
       </div>
     </div>
   </section>
@@ -876,25 +794,25 @@
   <section id="kontakt" class="cta-section">
     <div class="wrap cta-inner">
       <div>
-        <div class="eyebrow">Kontakt</div>
-        <h2>Zabezpiecz obiekt,<br>zanim przyjdzie fala</h2>
-        <p class="body-copy" style="margin-top:1.2rem;">
+        <div class="eyebrow" data-i18n="contact.eyebrow">Kontakt</div>
+        <h2 data-i18n="contact.title">Zabezpiecz budynek,<br>zanim przyjdzie fala</h2>
+        <p class="body-copy" style="margin-top:1.2rem;" data-i18n="contact.desc">
           Napisz do nas, a dobierzemy wariant i&nbsp;liczbę segmentów Flood Stop
-          odpowiednie do Twojej lokalizacji — od pojedynczego wjazdu po pełną
-          linię obrony przeciwpowodziowej gminy.
+          odpowiednie do Twojej lokalizacji - od pojedynczej bramy po całą
+          linię obrony przeciwpowodziowej Twojej gminy.
         </p>
-        <div class="note-strip" style="margin-top:1.6rem;">
+        <div class="note-strip" style="margin-top:1.6rem;" data-i18n="contact.note">
           Zapraszamy do udziału w naszych pokazach i&nbsp;szkoleniach z&nbsp;ochrony
-          przeciwpowodziowej, w&nbsp;tym w&nbsp;zakresie rozstawiania zapór! Możemy je
+          przeciwpowodziowej i rozstawiania zapór! Możemy je
           zorganizować także w&nbsp;Twojej jednostce.
         </div>
       </div>
 
       <div class="contact-card">
-        <div class="field"><div class="k">Firma</div><div class="v">FLOOD STOP R&amp;D Sp. z o.o.</div></div>
+        <div class="field"><div class="k" data-i18n="contact.companyKey">Firma</div><div class="v">FLOOD STOP Sp. z o.o.</div></div>
         <div class="field"><div class="k">E-mail</div><div class="v"><a href="#" onclick="copyEmail(event, 'kontakt@floodstop.pl')">kontakt@floodstop.pl</a></div></div>
-        <div class="field"><div class="k">Telefon</div><div class="v"><a href="#" onclick="copyPhone(event, '+48510118254')">510 118 254</a></div></div>
-        <div class="field"><div class="k">Adres / siedziba</div><div class="v">Grudziądz, ul. Kilińskiego 12/5</div></div>
+        <div class="field"><div class="k" data-i18n="contact.phoneKey">Telefon</div><div class="v"><a href="#" onclick="copyPhone(event, '+48510117254')">510 117 254</a></div></div>
+        <div class="field"><div class="k" data-i18n="contact.addressKey">Adres / siedziba</div><div class="v">64-530 Komorowo, Dworkowa 5</div></div>
       </div>
     </div>
   </section>
@@ -908,39 +826,369 @@
     <div class="foot-inner">
       <a class="logo" href="#top">FLOOD<span>STOP</span></a>
       <ul class="foot-links">
-        <li><a href="#jak-dziala">Jak działa</a></li>
-        <li><a href="#zalety">Zalety</a></li>
-        <li><a href="#dane-techniczne">Dane techniczne</a></li>
-        <li><a href="#grafika">W akcji</a></li>
-        <li><a href="#wdrozenie">Wdrożenie</a></li>
-        <li><a href="#zastosowania">Zastosowania</a></li>
-        <li><a href="#zespol">Zespół</a></li>
-        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#jak-dziala" data-i18n="nav.howItWorks">Jak działa</a></li>
+        <li><a href="#zalety" data-i18n="nav.advantages">Zalety</a></li>
+        <li><a href="#dane-techniczne" data-i18n="nav.specs">Dane techniczne</a></li>
+        <li><a href="#grafika" data-i18n="nav.inAction">W akcji</a></li>
+        <li><a href="#wdrozenie" data-i18n="nav.deployment">Wdrożenie</a></li>
+        <li><a href="#zastosowania" data-i18n="nav.applications">Zastosowania</a></li>
+        <li><a href="#zespol" data-i18n="nav.team">Zespół</a></li>
+        <li><a href="#kontakt" data-i18n="nav.contact">Kontakt</a></li>
       </ul>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Flood Stop. Wszelkie prawa zastrzeżone.</span>
-      <span>Dystrybucja: © 2026 <a href="https://promcodemarketing.github.io/promcode/" target="_blank">PROMCODE</a>. Wszelkie prawa zastrzeżone.</span>
+      <span data-i18n="footer.copyright">© 2026 Flood Stop. Wszelkie prawa zastrzeżone.</span>
+      <span data-i18n="footer.dist">Dystrybucja: © 2026 <a href="https://promcodemarketing.github.io/promcode/" target="_blank">PROMCODE</a>. Wszelkie prawa zastrzeżone.</span>
     </div>
   </div>
 </footer>
 
-<script>
+<script> 
+
+    /* SLOWNIKI */
+
+  var translations = {
+    pl: {
+      "nav.howItWorks": "Jak działa",
+      "nav.advantages": "Zalety",
+      "nav.specs": "Dane techniczne",
+      "nav.inAction": "W akcji",
+      "nav.deployment": "Wdrożenie",
+      "nav.applications": "Zastosowania",
+      "nav.team": "Zespół",
+      "nav.contact": "Kontakt",
+      "hero.eyebrow": "Mobilna zapora przeciwpowodziowa",
+      "hero.title": "Jedna bariera.<br>Zero worków&nbsp;z&nbsp;piaskiem.",
+      "hero.desc": "Flood Stop to rękaw przeciwpowodziowy, który dwie osoby rozstawiają i napełniają wodą w kilka minut. Jeden 10-metrowy segment zatrzymuje tyle wody, co 170 worków z piaskiem a po oczyszczeniu wraca do magazynu, gotowy na następną akcję.",
+      "hero.btnPrice": "Zapytaj o cenę",
+      "hero.btnSpecs": "dane techniczne",
+      "hero.stat1": "worków z piaskiem zastępuje jeden segment",
+      "hero.stat2": "czas napełnienia wodą z motopompy",
+      "hero.stat3": "minimalna żywotność przy prawidłowym przechowywaniu",
+      "howItWorks.eyebrow": "Zasada działania",
+      "howItWorks.title": "Woda przeciw wodzie",
+      "howItWorks.desc1": "Flood Stop pracuje w układzie dwupowłokowym: zewnętrzna, wytrzymała powłoka nadaje kształt, a wnętrze wypełnia się wodą pobraną z hydrantu, motopompy albo - w ostateczności - wprost z powodzi. Powstały w ten sposób słup wody działa jak przeciwciężar: im silniejsze parcie wody powodziowej z zewnątrz, tym mocniej rękaw dociskany jest do podłoża po stronie chronionej.",
+      "howItWorks.desc2": "Elastyczna, spłaszczona forma pozwala barierze dopasować się do nierównego terenu - kostki brukowej, trawnika, krawężnika - bez konieczności budowania podsypki czy szalunku, jak w przypadku murków przeciwpowodziowych.",
+      "advantages.eyebrow": "Dlaczego nie worki z piaskiem",
+      "advantages.title": "Trzy razy tak dla Flood&nbsp;Stop",
+      "advantages.feat1.title": "Szybkość i Wydajność",
+      "advantages.feat1.desc": "Rozstawienie 10-metrowego segmentu zajmuje 2 osobom kilka minut, co zastępuje 3 godziny napełniania i noszenia 170 worków z piaskiem.",
+      "advantages.feat2.title": "Wielokrotne użycie",
+      "advantages.feat2.desc": "Po opróżnieniu i oczyszczeniu rękaw wraca do magazynu - 10 lat eksploatacji przy właściwym przechowywaniu.",
+      "advantages.feat3.title": "Szczelność i odporność",
+      "advantages.feat3.desc": "Elastyczna powłoka szczelnie przylega do nierównego terenu - bez szczelin, przez które worki zwykle przepuszczają wodę. Atestowana odporność na zewnętrzne czynniki chemiczne i mechaniczne.",
+      "specs.eyebrow": "Specyfikacja",
+      "specs.title": "Dane techniczne",
+      "specs.length": "Długość",
+      "specs.capacity": "Pojemność",
+      "specs.capacityVal": "ok. 3000 l wody",
+      "specs.height": "Wysokość piętrzenia wody",
+      "specs.heightVal": "45 cm jeden segment (70cm piramida 3 segmenty)",
+      "specs.width": "Szerokość podstawy",
+      "specs.weight": "Masa segmentu (pusty)",
+      "specs.dimensions": "Wymiary transportowe (złożony)",
+      "specs.fillTime": "Czas napełnienia",
+      "specs.fillTimeVal": "5 min · motopompa 800 l/min",
+      "specs.lifespan": "Żywotność",
+      "specs.lifespanVal": "10 lat",
+      "specs.compat": "Kompatybilność",
+      "specs.compatVal": "hydranty, Storz, motopompy, wozy gaśnicze PSP; woda czysta lub powodziowa",
+      "action.eyebrow": "W akcji",
+      "action.title": "Zobacz jak działa Flood Stop",
+      "process.eyebrow": "Procedura",
+      "process.title": "Wdrożenie w pięciu krokach",
+      "process.subtitle": "Cała procedura - od rozwinięcia po gotową barierę - zajmuje 2 osobom kilka minut.",
+      "process.step1.title": "Przygotowanie podłoża",
+      "process.step1.desc": "Usunięcie ostrych elementów i wyznaczenie linii obrony.",
+      "process.step2.title": "Rozwinięcie rękawa",
+      "process.step2.desc": "Segmenty rozwija się i łączy na potrzebną długość wzdłuż wyznaczonej linii.",
+      "process.step3.title": "Podłączenie źródła wody",
+      "process.step3.desc": "Hydrant, motopompa lub wóz bojowy + woda czysta albo bezpośrednio z powodzi.",
+      "process.step4.title": "Napełnienie",
+      "process.step4.desc": "5 minut przy wydajności pompy 800 l/min, aż segment osiągnie pełną wysokość.",
+      "process.step5.title": "Zamknięcie i kontrola",
+      "process.step5.desc": "Zamknięcie otworów, sprawdzenie przylegania do podłoża.",
+      "cases.eyebrow": "Zastosowania",
+      "cases.title": "Dla kogo pracuje Flood&nbsp;Stop",
+      "cases.item1": "Państwowa i Ochotnicza Straż Pożarna",
+      "cases.item2": "Gminne centra zarządzania kryzysowego",
+      "cases.item3": "Infrastruktura krytyczna - ujęcia wody, stacje uzdatniania",
+      "cases.item4": "Drogi, mosty i obiekty przemysłowe",
+      "cases.item5": "Posesje i obiekty prywatne",
+      "compare.eyebrow": "Flood Stop kontra worki z piaskiem",
+      "compare.title": "Ten sam efekt.<br>Ułamek czasu i&nbsp;ludzi.",
+      "compare.colSandbags": "Worki z piaskiem",
+      "compare.row1": "Czas przygotowania 10 m bariery",
+      "compare.row1Sandbags": "Wiele godzin pracy",
+      "compare.row1Fs": "5-6 minut",
+      "compare.row2": "Liczba osób do rozstawienia",
+      "compare.row2Sandbags": "Kilkanaście",
+      "compare.row2Fs": "2-3 osoby",
+      "compare.row3": "Wielokrotność użycia",
+      "compare.row3Sandbags": "Nie - po akcji do utylizacji",
+      "compare.row3Fs": "Tak - min. 10 lat",
+      "compare.row4": "Miejsce składowania",
+      "compare.row4Sandbags": "Duża powierzchnia magazynowa",
+      "compare.row4Fs": "110 × 40 × 5 cm na segment",
+      "team.eyebrow": "Nasz zespół",
+      "team.title": "Zapraszamy do kontaktu<br>z naszym partnerem handlowym",
+      "team.role1": "Specjalista ds. sprzętu ratownictwa cywilnego",
+      "team.role2": "Główny koordynator...",
+      "contact.eyebrow": "Kontakt",
+      "contact.title": "Zabezpiecz budynek,<br>zanim przyjdzie fala",
+      "contact.desc": "Napisz do nas, a dobierzemy wariant i liczbę segmentów Flood Stop odpowiednie do Twojej lokalizacji - od pojedynczej bramy po całą linię obrony przeciwpowodziowej Twojej gminy.",
+      "contact.note": "Zapraszamy do udziału w naszych pokazach i szkoleniach z ochrony przeciwpowodziowej i rozstawiania zapór! Możemy je zorganizować także w Twojej jednostce.",
+      "contact.companyKey": "Firma",
+      "contact.phoneKey": "Telefon",
+      "contact.addressKey": "Adres / siedziba",
+      "footer.copyright": "© 2026 Flood Stop. Wszelkie prawa zastrzeżone.",
+      "footer.dist": "Dystrybucja: © 2026 PROMCODE. Wszelkie prawa zastrzeżone.",
+      "toast.copiedEmail": "Skopiowano: ",
+      "toast.copiedPhone": "Skopiowano numer: ",
+      "toast.fail": "Nie udało się skopiować"
+    },
+    en: {
+      "nav.howItWorks": "How it works",
+      "nav.advantages": "Advantages",
+      "nav.specs": "Specifications",
+      "nav.inAction": "In action",
+      "nav.deployment": "Deployment",
+      "nav.applications": "Applications",
+      "nav.team": "Team",
+      "nav.contact": "Contact",
+      "hero.eyebrow": "Mobile Flood Barrier",
+      "hero.title": "One barrier.<br>Zero sandbags.",
+      "hero.desc": "Flood Stop is a flood barrier sleeve deployed and filled with water by two people in just minutes. A single 10-meter segment holds back as much water as 170 sandbags and, once cleaned, returns to storage ready for the next event.",
+      "hero.btnPrice": "Ask for price",
+      "hero.btnSpecs": "Specifications",
+      "hero.stat1": "sandbags replaced by a single segment",
+      "hero.stat2": "filling time using a motor pump",
+      "hero.stat3": "minimum lifespan under proper storage",
+      "howItWorks.eyebrow": "Operating Principle",
+      "howItWorks.title": "Water against water",
+      "howItWorks.desc1": "Flood Stop operates as a double-layer system: a durable outer sleeve provides structural shape, while the interior fills with water drawn from a hydrant, pump, or directly from floodwaters. The resulting water column acts as a counterweight: the greater the floodwater pressure from outside, the firmer the sleeve presses to the ground.",
+      "howItWorks.desc2": "Its flexible form allows the barrier to seal against uneven ground-cobblestones, lawns, or curbs-eliminating the need for ground preparation or formwork.",
+      "advantages.eyebrow": "Why not sandbags?",
+      "advantages.title": "Three reasons to choose Flood&nbsp;Stop",
+      "advantages.feat1.title": "Speed & Efficiency",
+      "advantages.feat1.desc": "Deploying a 10-meter segment takes 2 people just minutes, replacing 3 hours of filling and carrying 170 sandbags.",
+      "advantages.feat2.title": "Reusable",
+      "advantages.feat2.desc": "After draining and cleaning, the sleeve is packed away-delivering up to 10 years of service life when stored properly.",
+      "advantages.feat3.title": "Tight Seal & Durability",
+      "advantages.feat3.desc": "The flexible sleeve conforms to ground contours without gaps. Certified resistance against external chemical and mechanical factors.",
+      "specs.eyebrow": "Specifications",
+      "specs.title": "Technical Data",
+      "specs.length": "Length",
+      "specs.capacity": "Capacity",
+      "specs.capacityVal": "approx. 3000 L of water",
+      "specs.height": "Damming Height",
+      "specs.heightVal": "45 cm (single) / 70 cm (3-segment pyramid)",
+      "specs.width": "Base Width",
+      "specs.weight": "Weight (empty)",
+      "specs.dimensions": "Transport Dimensions",
+      "specs.fillTime": "Fill Time",
+      "specs.fillTimeVal": "5 min (with 800 l/min pump)",
+      "specs.lifespan": "Lifespan",
+      "specs.lifespanVal": "10 years",
+      "specs.compat": "Compatibility",
+      "specs.compatVal": "Hydrants, Storz, pumps, fire trucks; clean or floodwater",
+      "action.eyebrow": "In Action",
+      "action.title": "See Flood Stop in action",
+      "process.eyebrow": "Procedure",
+      "process.title": "Deployment in 5 steps",
+      "process.subtitle": "The entire deployment - from unrolling to a fully functional barrier - takes two people only a few minutes.",
+      "process.step1.title": "Ground Preparation",
+      "process.step1.desc": "Remove sharp objects and mark out the defense line.",
+      "process.step2.title": "Unrolling the Sleeve",
+      "process.step2.desc": "Unroll and connect segments along the defense line to the required length.",
+      "process.step3.title": "Water Source Connection",
+      "process.step3.desc": "Connect a hydrant, motor pump, or fire engine using clean or floodwater.",
+      "process.step4.title": "Filling",
+      "process.step4.desc": "5 minutes filling at 800 l/min until the segment reaches full height.",
+      "process.step5.title": "Sealing & Inspection",
+      "process.step5.desc": "Close valves and verify ground seal along the perimeter.",
+      "cases.eyebrow": "Applications",
+      "cases.title": "Who relies on Flood&nbsp;Stop",
+      "cases.item1": "State & Volunteer Fire Departments",
+      "cases.item2": "Municipal Crisis Management Centers",
+      "cases.item3": "Critical Infrastructure - Water Intakes & Treatment Plants",
+      "cases.item4": "Roads, Bridges & Industrial Facilities",
+      "cases.item5": "Private Properties & Buildings",
+      "compare.eyebrow": "Flood Stop vs. Sandbags",
+      "compare.title": "Same protection.<br>A fraction of time and labor.",
+      "compare.colSandbags": "Sandbags",
+      "compare.row1": "Preparation time (10m barrier)",
+      "compare.row1Sandbags": "Multiple hours of labor",
+      "compare.row1Fs": "5-6 minutes",
+      "compare.row2": "Personnel required",
+      "compare.row2Sandbags": "10+ people",
+      "compare.row2Fs": "2-3 people",
+      "compare.row3": "Reusability",
+      "compare.row3Sandbags": "No - disposed after single use",
+      "compare.row3Fs": "Yes - min. 10 years",
+      "compare.row4": "Storage footprint",
+      "compare.row4Sandbags": "Large warehouse space required",
+      "compare.row4Fs": "110 × 40 × 5 cm per segment",
+      "team.eyebrow": "Our Team",
+      "team.title": "Contact our sales partners",
+      "team.role1": "Civil Defense Equipment Specialist",
+      "team.role2": "Main Coordinator...",
+      "contact.eyebrow": "Contact Us",
+      "contact.title": "Secure your facility<br>before the flood hits",
+      "contact.desc": "Get in touch to determine the right setup and number of Flood Stop segments for your site, from a single entrance to an entire municipal defense line.",
+      "contact.note": "We organize live demonstrations and flood defense training sessions! We can host a demonstration directly at your facility.",
+      "contact.companyKey": "Company",
+      "contact.phoneKey": "Phone",
+      "contact.addressKey": "Headquarters / Address",
+      "footer.copyright": "© 2026 Flood Stop. All rights reserved.",
+      "footer.dist": "Distribution: © 2026 PROMCODE. All rights reserved.",
+      "toast.copiedEmail": "Copied: ",
+      "toast.copiedPhone": "Copied phone number: ",
+      "toast.fail": "Failed to copy"
+    },
+    de: {
+      "nav.howItWorks": "Funktionsweise",
+      "nav.advantages": "Vorteile",
+      "nav.specs": "Technische Daten",
+      "nav.inAction": "Im Einsatz",
+      "nav.deployment": "Aufbau",
+      "nav.applications": "Anwendungen",
+      "nav.team": "Team",
+      "nav.contact": "Kontakt",
+      "hero.eyebrow": "Mobile Hochwasserschutzbarriere",
+      "hero.title": "Eine Barriere.<br>Null Sandsäcke.",
+      "hero.desc": "Flood Stop ist ein Hochwasserschutzschlauch, der von zwei Personen in wenigen Minuten verlegt und mit Wasser befüllt wird. Ein einziger 10-Meter-Abschnitt ersetzt 170 Sandsäcke und ist nach der Reinigung sofort einsatzbereit für den nächsten Notfall.",
+      "hero.btnPrice": "Angebot anfordern",
+      "hero.btnSpecs": "Technische Daten",
+      "hero.stat1": "Sandsäcke werden durch ein Segment ersetzt",
+      "hero.stat2": "Befüllzeit mit Motorpumpe",
+      "hero.stat3": "Mindestlebensdauer bei sachgemäßer Lagerung",
+      "howItWorks.eyebrow": "Funktionsprinzip",
+      "howItWorks.title": "Wasser gegen Wasser",
+      "howItWorks.desc1": "Flood Stop arbeitet mit einem Zweihüllensystem: Die robuste Außenhülle gibt die Form vor, während das Innere mit Wasser aus Hydranten, Pumpen oder direkt aus dem Hochwasser gefüllt wird. Die entstandene Wassersäule wirkt als Gegengewicht: Je höher der äußere Wasserdruck, desto fester wird der Schlauch auf den Untergrund gepresst.",
+      "howItWorks.desc2": "Durch die flexible Form passt sich die Barriere problemlos unebenen Untergründen wie Pflastersteinen, Rasen oder Bordsteinen an-ohne zusätzliche Baumaßnahmen.",
+      "advantages.eyebrow": "Warum keine Sandsäcke?",
+      "advantages.title": "Drei Gründe für Flood&nbsp;Stop",
+      "advantages.feat1.title": "Schnelligkeit & Effizienz",
+      "advantages.feat1.desc": "Der Aufbau eines 10-Meter-Segments dauert mit 2 Personen nur wenige Minuten und ersetzt 3 Stunden intensives Schleppen von 170 Sandsäcken.",
+      "advantages.feat2.title": "Wiederverwendbar",
+      "advantages.feat2.desc": "Nach dem Entleeren und Reinigen wird der Schlauch einfach verstaut-bis zu 10 Jahre Einsatzdauer bei korrekter Lagerung.",
+      "advantages.feat3.title": "Dichtheit & Beständigkeit",
+      "advantages.feat3.desc": "Die flexible Hülle schließt nahtlos am Boden ab. Zertifizierte Beständigkeit gegen chemische und mechanische Einflüsse.",
+      "specs.eyebrow": "Spezifikationen",
+      "specs.title": "Technische Daten",
+      "specs.length": "Länge",
+      "specs.capacity": "Kapazität",
+      "specs.capacityVal": "ca. 3000 l Wasser",
+      "specs.height": "Stauhöhe",
+      "specs.heightVal": "45 cm (Einzelsegment) / 70 cm (3er-Pyramide)",
+      "specs.width": "Basisbreite",
+      "specs.weight": "Gewicht (leer)",
+      "specs.dimensions": "Transportmaße",
+      "specs.fillTime": "Befüllzeit",
+      "specs.fillTimeVal": "5 Min. (mit 800 l/min Pumpe)",
+      "specs.lifespan": "Lebensdauer",
+      "specs.lifespanVal": "10 Jahre",
+      "specs.compat": "Kompatibilität",
+      "specs.compatVal": "Hydranten, Storz, Pumpen, Feuerwehrfahrzeuge; Frisch oder Hochwasser",
+      "action.eyebrow": "Im Einsatz",
+      "action.title": "Flood Stop in der Praxis",
+      "process.eyebrow": "Ablauf",
+      "process.title": "Aufbau in fünf Schritten",
+      "process.subtitle": "Der gesamte Aufbau, vom Ausrollen bis zur fertigen Schutzbarriere, dauert für zwei Personen nur wenige Minuten.",
+      "process.step1.title": "Untergrund vorbereiten",
+      "process.step1.desc": "Scharfe Gegenstände entfernen und Schutzlinie festlegen.",
+      "process.step2.title": "Schlauch ausrollen",
+      "process.step2.desc": "Segmente entlang der Linie ausrollen und auf benötigte Länge verbinden.",
+      "process.step3.title": "Wasserquelle anschließen",
+      "process.step3.desc": "Hydrant, Pumpe oder Feuerwehrfahrzeug anschließen (Sauber oder Hochwasser).",
+      "process.step4.title": "Befüllen",
+      "process.step4.desc": "5 Minuten Befüllzeit bei 800 l/min Förderleistung bis zur vollen Höhe.",
+      "process.step5.title": "Verschließen & Prüfen",
+      "process.step5.desc": "Ventile schließen und Bodenhaftung kontrollieren.",
+      "cases.eyebrow": "Anwendungsbereiche",
+      "cases.title": "Für wen arbeitet Flood&nbsp;Stop",
+      "cases.item1": "Feuerwehr & Katastrophenschutz",
+      "cases.item2": "Kommunale Krisenstäbe & Gemeinden",
+      "cases.item3": "Kritische Infrastruktur-Wasserwerke & Kläranlagen",
+      "cases.item4": "Straßen, Brücken & Industrieanlagen",
+      "cases.item5": "Privatgrundstücke & Gebäude",
+      "compare.eyebrow": "Flood Stop vs. Sandsäcke",
+      "compare.title": "Gleicher Schutz.<br>Ein Bruchteil an Zeit und Personal.",
+      "compare.colSandbags": "Sandsäcke",
+      "compare.row1": "Aufbauzeit (10m Barriere)",
+      "compare.row1Sandbags": "Mehrere Stunden Arbeit",
+      "compare.row1Fs": "5-6 Minuten",
+      "compare.row2": "Benötigtes Personal",
+      "compare.row2Sandbags": "10+ Personen",
+      "compare.row2Fs": "2-3 Personen",
+      "compare.row3": "Wiederverwendbarkeit",
+      "compare.row3Sandbags": "Nein-Entsorgung nach Einsatz",
+      "compare.row3Fs": "Ja-mind. 10 Jahre",
+      "compare.row4": "Lagerbedarf",
+      "compare.row4Sandbags": "Große Lagerflächen erforderlich",
+      "compare.row4Fs": "110 × 40 × 5 cm pro Segment",
+      "team.eyebrow": "Unser Team",
+      "team.title": "Kontaktieren Sie unsere Vertriebspartner",
+      "team.role1": "Spezialist für Zivilschutzausrüstung",
+      "team.role2": "Hauptkoordinator...",
+      "contact.eyebrow": "Kontakt",
+      "contact.title": "Schützen Sie Ihr Gebäude,<br>bevor die Flut kommt",
+      "contact.desc": "Kontaktieren Sie uns, wir ermitteln die passende Anzahl an Flood Stop Segmenten für Ihr Objekt oder Ihre Gemeinde.",
+      "contact.note": "Wir bieten Vorführungen und Schulungen zum Aufbau von Hochwasserschutzsystemen an, gerne auch direkt bei Ihrer Dienststelle.",
+      "contact.companyKey": "Firma",
+      "contact.phoneKey": "Telefon",
+      "contact.addressKey": "Adresse / Hauptsitz",
+      "footer.copyright": "© 2026 Flood Stop. Alle Rechte vorbehalten.",
+      "footer.dist": "Vertrieb: © 2026 PROMCODE. Alle Rechte vorbehalten.",
+      "toast.copiedEmail": "Kopiert: ",
+      "toast.copiedPhone": "Telefonnummer kopiert: ",
+      "toast.fail": "Kopieren fehlgeschlagen"
+    }
+  };
+
+  /* ZMIANA JEZYKA STRONY */
+
+  var currentLang = 'pl';
+
+  function setLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    localStorage.setItem('fs-lang', lang);
+
+    var elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    document.getElementById('langPl').classList.toggle('active', lang === 'pl');
+    document.getElementById('langEn').classList.toggle('active', lang === 'en');
+    document.getElementById('langDe').classList.toggle('active', lang === 'de');
+  }
+
+  /* KOPIOWANIE MAIL/TEL ORAZ TOAST*/
+
   function copyEmail(e, email){
     e.preventDefault();
+    var dict = translations[currentLang];
     navigator.clipboard.writeText(email).then(function(){
-      showToast('Skopiowano: ' + email);
+      showToast(dict["toast.copiedEmail"] + email);
     }).catch(function(){
-      showToast('Nie udało się skopiować adresu');
+      showToast(dict["toast.fail"]);
     });
   }
 
   function copyPhone(e, phone){
     e.preventDefault();
+    var dict = translations[currentLang];
     navigator.clipboard.writeText(phone).then(function(){
-      showToast('Skopiowano numer: ' + phone);
+      showToast(dict["toast.copiedPhone"] + phone);
     }).catch(function(){
-      showToast('Nie udało się skopiować numeru');
+      showToast(dict["toast.fail"]);
     });
   }
 
@@ -959,6 +1207,8 @@
       toast.classList.remove('show');
     }, 2200);
   }
+
+  /* STRZALKI ORAZ OBSLUGA KRESEK W SEKCJI ZESPOL */
 
   var currentTeamIndex = 0;
 
@@ -988,20 +1238,7 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function(){
-  var track = document.getElementById('teamTrack');
-  if (track){
-    updateTeamDots();
-    track.addEventListener('scroll', function(){
-      clearTimeout(track._dotTimer);
-      track._dotTimer = setTimeout(function(){ updateTeamDots(); }, 30);
-    });
-    track.addEventListener('scrollend', function(){
-      clearTimeout(track._dotTimer);
-      updateTeamDots();
-    });
-  }
-});
+  /* ZMIANA MOTYWU STRONY */
 
   function setTheme(mode){
     document.documentElement.setAttribute('data-theme', mode);
@@ -1014,13 +1251,29 @@
     document.getElementById('themeMoon').classList.toggle('active', mode === 'dark');
   }
 
-  (function(){
-    var saved = localStorage.getItem('fs-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
-    document.addEventListener('DOMContentLoaded', function(){
-      updateThemeButtons(saved);
-    });
-  })();
+  document.addEventListener('DOMContentLoaded', function(){
+
+    var savedLang = localStorage.getItem('fs-lang') || 'pl';
+    setLanguage(savedLang);
+
+    var savedTheme = localStorage.getItem('fs-theme') || 'light';
+    setTheme(savedTheme);
+
+    var track = document.getElementById('teamTrack');
+    if (track){
+      updateTeamDots();
+      track.addEventListener('scroll', function(){
+        clearTimeout(track._dotTimer);
+        track._dotTimer = setTimeout(function(){ updateTeamDots(); }, 30);
+      });
+      track.addEventListener('scrollend', function(){
+        clearTimeout(track._dotTimer);
+        updateTeamDots();
+      });
+    }
+  });
+
+  /* PLYNNE PRZEWIJANIE NA STRONIE */ 
 
   if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     document.querySelectorAll('.feature, .process-item, .case').forEach(function(el){
