@@ -164,6 +164,78 @@
   .theme-btn:hover, .lang-btn:hover{ color:var(--text); border-color:var(--text-muted); }
   .theme-btn.active, .lang-btn.active{ color:var(--accent-ink); background:var(--accent); border-color:var(--accent); }
 
+  /* Styling menu na telefonie */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 100;
+  }
+
+  .hamburger-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--text);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .nav-toggle.open .hamburger-bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .nav-toggle.open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.open .hamburger-bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
+  
+  @media (max-width: 960px) {
+    .nav-toggle {
+      display: flex; 
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 64px; 
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(100vh - 64px);
+      background: var(--bg);
+      padding: 2rem 1.75rem 4rem;
+      gap: 1.25rem;
+      overflow-y: auto; 
+      
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a {
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: block;
+      padding-block: .4rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-links.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+  }
+
   /* ---------- buttons ---------- */
   .btn{
     display:inline-flex; align-items:center; gap:.5rem;
@@ -412,6 +484,13 @@
   <header class="site">
   <nav class="nav">
     <a class="logo" href="#top">FLOOD<span>STOP</span></a>
+    
+    <button class="nav-toggle" id="navToggle" aria-label="Otwórz menu" aria-expanded="false">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
     <ul class="nav-links">
       <li><a href="#jak-dziala" data-i18n="nav.howItWorks">Jak działa</a></li>
       <li><a href="#zalety" data-i18n="nav.advantages">Zalety</a></li>
@@ -1272,6 +1351,31 @@
       });
     }
   });
+
+  /* OBSLUGA PRZYCISKU OTWIERANIA MENU NA MOBILE */
+
+  document.addEventListener('DOMContentLoaded', function() {
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+
+  if (navToggle && navLinks) {
+    // 1. Otwieranie / zamykanie menu po kliknięciu w hamburgera
+    navToggle.addEventListener('click', function() {
+      var isOpen = navToggle.classList.toggle('open');
+      navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // 2. Automatyczne zamykanie menu po kliknięciu w dowolny link
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navToggle.classList.remove('open');
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+});
 
   /* PLYNNE PRZEWIJANIE NA STRONIE */ 
 
